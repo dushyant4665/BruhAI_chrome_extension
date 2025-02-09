@@ -1,0 +1,36 @@
+body {
+    width: 400px;
+    padding: 15px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  #input {
+    height: 100px;
+    padding: 10px;
+    resize: vertical;
+  }
+  
+  #explain-btn {
+    padding: 8px;
+    background: #10a37f;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .result-box {
+    padding: 10px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    white-space: pre-wrap;
+  }
+  
+  .hidden {
+    display: none;
+  }
