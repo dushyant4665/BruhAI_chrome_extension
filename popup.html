@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BruhAI Chrome Extension - Explain code and text with AI">
+  <title>BruhAI - AI Explainer</title>
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
   <div class="container">
-    <textarea id="input" placeholder="Paste code/text here..."></textarea>
-    <button id="explain-btn">Explain</button>
-    <div id="result" class="result-box"></div>
-    <div id="loading" class="hidden">Loading...</div>
+    <textarea id="input" placeholder="Paste code/text here..." aria-label="Input text or code"></textarea>
+    <button id="explain-btn" type="button" aria-label="Explain text">Explain</button>
+    <div id="result" class="result-box" aria-live="polite"></div>
+    <div id="loading" class="hidden" aria-hidden="true">Loading...</div>
   </div>
   <script src="popup.js"></script>
 </body>
