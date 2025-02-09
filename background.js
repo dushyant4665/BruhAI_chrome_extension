@@ -4,7 +4,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     explainText(request.text)
       .then(explanation => sendResponse({explanation: explanation}))
       .catch(error => sendResponse({error: error.message}));
-    return true;  // Will respond asynchronously
+    return true;  
   }
 });
 
