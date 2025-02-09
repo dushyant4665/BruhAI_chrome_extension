@@ -39,6 +39,6 @@ document.getElementById('explain-btn').addEventListener('click', async () => {
 });
 
 async function getSecureKey() {
-  const { apiKey } = await chrome.storage.local.get('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');
+  const { apiKey } = await chrome.storage.local.get('EXE_KEY');
   return apiKey || prompt("Please enter your OpenAI API key:");
 }
