@@ -1,67 +1,130 @@
+<!-- chrome-extension/src/popup/popup.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>AI Code Assistant</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <style>
-    @keyframes wave {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .gradient-bg {
-      background: linear-gradient(-45deg, #6366f1, #8b5cf6, #ec4899);
-      background-size: 400% 400%;
-      animation: wave 15s ease infinite;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>AI Code Assistant - Portfolio Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<body class="w-[400px] min-h-[500px] bg-gray-900 text-white">
-  <div class="gradient-bg p-6">
-    <h1 class="text-2xl font-bold flex items-center gap-2">
-      <i class="fas fa-robot"></i> Code AI Assistant
-    </h1>
-  </div>
+<body class="w-[450px] min-h-[600px] bg-gray-900 text-gray-100 font-sans">
+    <!-- Header Section -->
+    <header class="bg-gray-800 p-4 border-b border-gray-700">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <img src="icons/logo.png" alt="AI Assistant" class="w-8 h-8">
+                <h1 class="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
+                    DevAI Assistant
+                </h1>
+            </div>
+            <div class="flex items-center space-x-2">
+                <a href="https://linkedin.com/in/yourprofile" target="_blank" 
+                   class="p-1 hover:bg-gray-700 rounded-full transition-colors">
+                    <i class="fab fa-linkedin text-blue-400"></i>
+                </a>
+                <a href="https://github.com/yourprofile" target="_blank" 
+                   class="p-1 hover:bg-gray-700 rounded-full transition-colors">
+                    <i class="fab fa-github text-gray-100"></i>
+                </a>
+            </div>
+        </div>
+    </header>
 
-  <div class="p-6 space-y-4">
-    <div class="grid grid-cols-2 gap-4">
-      <button id="summarize" class="ai-btn bg-indigo-600 hover:bg-indigo-700">
-        <i class="fas fa-comment mr-2"></i>Summarize
-      </button>
-      <button id="explain" class="ai-btn bg-purple-600 hover:bg-purple-700">
-        <i class="fas fa-lightbulb mr-2"></i>Explain
-      </button>
-      <button id="debug" class="ai-btn bg-pink-600 hover:bg-pink-700">
-        <i class="fas fa-bug mr-2"></i>Debug
-      </button>
-      <button id="optimize" class="ai-btn bg-teal-600 hover:bg-teal-700">
-        <i class="fas fa-bolt mr-2"></i>Optimize
-      </button>
-    </div>
+    <!-- Main Content -->
+    <main class="p-4 space-y-4">
+        <!-- Action Cards Grid -->
+        <div class="grid grid-cols-2 gap-3">
+            <button id="summarize" class="action-card bg-gray-800 hover:bg-gray-750">
+                <i class="fas fa-comment-dots text-purple-400"></i>
+                <span>Summarize</span>
+            </button>
+            <button id="explain" class="action-card bg-gray-800 hover:bg-gray-750">
+                <i class="fas fa-lightbulb text-yellow-400"></i>
+                <span>Explain Code</span>
+            </button>
+            <button id="debug" class="action-card bg-gray-800 hover:bg-gray-750">
+                <i class="fas fa-bug text-red-400"></i>
+                <span>Debug Code</span>
+            </button>
+            <button id="optimize" class="action-card bg-gray-800 hover:bg-gray-750">
+                <i class="fas fa-bolt text-green-400"></i>
+                <span>Optimize Code</span>
+            </button>
+        </div>
 
-    <div class="bg-gray-800 rounded-lg p-4 min-h-[200px]">
-      <div id="result" class="prose prose-invert max-h-[300px] overflow-y-auto"></div>
-      <div id="loading" class="hidden text-center py-4">
-        <div class="dot-flashing mx-auto"></div>
-      </div>
-    </div>
+        <!-- Custom Prompt Section -->
+        <div class="bg-gray-800 rounded-lg p-3">
+            <div class="flex space-x-2">
+                <input type="text" id="customPrompt" 
+                       placeholder="Enter custom instruction..." 
+                       class="flex-1 bg-gray-700 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <button id="customAction" class="px-3 py-2 bg-purple-600 hover:bg-purple-700 rounded text-sm">
+                    <i class="fas fa-magic mr-2"></i>Execute
+                </button>
+            </div>
+        </div>
 
-    <div class="flex justify-between items-center text-sm text-gray-400">
-      <button id="copy" class="hover:text-white">
-        <i class="far fa-copy mr-1"></i>Copy
-      </button>
-      <div class="flex items-center gap-2">
-        <i class="fas fa-database"></i>
-        <select id="aiModel" class="bg-gray-800 px-2 py-1 rounded">
-          <option value="gemini">Gemini</option>
-          <option value="gpt">GPT-3.5</option>
-        </select>
-      </div>
-    </div>
-  </div>
+        <!-- Result Section -->
+        <div class="bg-gray-800 rounded-lg p-3">
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="font-semibold text-sm text-gray-400">AI Response</h3>
+                <button id="copyResult" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="far fa-copy"></i>
+                </button>
+            </div>
+            <div id="result" class="prose prose-invert max-h-[300px] overflow-y-auto text-sm"></div>
+            <div id="loading" class="hidden pt-4">
+                <div class="flex items-center justify-center space-x-2 text-purple-400">
+                    <div class="dot-flashing"></div>
+                    <span>Analyzing with AI...</span>
+                </div>
+            </div>
+            <div id="error" class="hidden mt-3 p-2 bg-red-900/30 text-red-300 rounded text-sm"></div>
+        </div>
 
-  <script src="popup.js"></script>
+        <!-- History Section -->
+        <div class="bg-gray-800 rounded-lg p-3">
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="font-semibold text-sm text-gray-400">History</h3>
+                <button id="clearHistory" class="text-gray-400 hover:text-white text-sm">
+                    Clear All
+                </button>
+            </div>
+            <div id="historyList" class="space-y-2 max-h-[120px] overflow-y-auto"></div>
+        </div>
+    </main>
+
+    <!-- Footer Attribution -->
+    <footer class="p-4 border-t border-gray-800 text-center text-sm text-gray-400">
+        <p>Built with ❤️ by [Your Name] - Showcase Project</p>
+        <p>Using Google Gemini AI & OpenAI</p>
+    </footer>
+
+    <script src="popup.js"></script>
+    <style>
+        .action-card {
+            @apply p-3 rounded-lg flex flex-col items-center space-y-2 transition-colors;
+            @apply border border-gray-700 hover:border-purple-400;
+        }
+        
+        .dot-flashing {
+            @apply w-2 h-2 rounded-full bg-current opacity-75;
+            animation: dotFlashing 1s infinite linear;
+        }
+
+        @keyframes dotFlashing {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .prose-invert pre {
+            @apply bg-gray-900 p-3 rounded text-sm;
+        }
+
+        .prose-invert code {
+            @apply bg-gray-900 px-1 py-0.5 rounded text-sm;
+        }
+    </style>
 </body>
 </html>

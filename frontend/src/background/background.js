@@ -1,38 +1,61 @@
+// Service Worker (Manifest V3)
+chrome.runtime.onInstalled.addListener(initializeExtension);
+chrome.runtime.onMessage.addListener(handleMessages);
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === 'explain') {
-    explainText(request.text)
-      .then(explanation => sendResponse({explanation: explanation}))
-      .catch(error => sendResponse({error: error.message}));
-    return true;  
-  }
-});
-
-async function explainText(text) {
-  const apiKey = await chrome.storage.sync.get('openai_api_key');
-  if (!apiKey.openai_api_key) {
-    throw new Error('OpenAI API key not set. Please set it in the extension options.');
-  }
-
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey.openai_api_key}`
-    },
-    body: JSON.stringify({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {"role": "system", "content": "You are a helpful assistant that explains code and text."},
-        {"role": "user", "content": `Explain the following: ${text}`}
-      ]
-    })
+// Initialize default settings and context menu
+function initializeExtension() {
+  // Set default configuration
+  chrome.storage.local.set({
+    settings: {
+      aiModel: 'gemini',
+      theme: 'dark',
+      apiEndpoint: 'https://your-api.com/v1/process'
+    }
   });
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
+  // Create context menu
+  chrome.contextMenus.create({
+    id: 'aiAssistant',
+    title: 'AI Assistant: %s', 
+    contexts: ['selection']
+  });
+}
 
-  const data = await response.json();
-  return data.choices[0].message.content;
+// Handle messages from popup/content scripts
+function handleMessages(request, sender, sendResponse) {
+  switch(request.action) {
+    case 'processText':
+      handleTextProcessing(request, sender, sendResponse);
+      break;
+    case 'logAnalytics':
+      handleAnalytics(request);
+      break;
+    case 'getSettings':
+      chrome.storage.local.get('settings', sendResponse);
+      return true; // Async response
+  }
+}
+
+async function handleTextProcessing({ text, prompt, model }, sender) {
+  try {
+    // Get API key from secure storage
+    const { settings } = await chrome.storage.local.get('settings');
+    const apiKey = await chrome.storage.session.get('apiKey');
+    
+    // Process with AI
+    const response = await fetch(settings.apiEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({ text, prompt, model })
+    });
+
+    if (!response.ok) throw new Error('API Error');
+    return response.json();
+  } catch (error) {
+    console.error('Processing Error:', error);
+    throw error;
+  }
 }

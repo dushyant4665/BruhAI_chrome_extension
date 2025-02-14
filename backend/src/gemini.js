@@ -1,17 +1,23 @@
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
 export async function processWithGemini(text, prompt) {
-    const API_KEY = process.env.GEMINI_API_KEY;
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{
-          parts: [{
-            text: `${prompt}:\n\n${text}`
-          }]
-        }]
-      })
-    });
-  
-    const data = await response.json();
-    return data.candidates[0].content.parts[0].text;
+  try {
+    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const fullPrompt = `${prompt}\n\n${text}`;
+    
+    const result = await model.generateContent(fullPrompt);
+    const response = await result.response;
+    
+    return {
+      success: true,
+      text: response.text(),
+      model: 'gemini-pro',
+      tokens: response.usageMetadata?.totalTokenCount || 0
+    };
+  } catch (error) {
+    error.code = 'GEMINI_ERROR';
+    throw error;
   }
+}
