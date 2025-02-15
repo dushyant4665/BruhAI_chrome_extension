@@ -83,8 +83,6 @@
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 
-
-
 // backend/src/server.js
 import express from 'express';
 import cors from 'cors';
@@ -98,13 +96,11 @@ import { Cache } from './models/cache.js';
 
 const app = express();
 
-// Middleware
 app.use(helmet());
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use(morgan('tiny'));
 
-// Rate limiting
 const limiter = rateLimit({
   windowMs: process.env.RATE_LIMIT_WINDOW || 3600 * 1000,
   max: process.env.RATE_LIMIT_MAX || 100,
@@ -112,7 +108,6 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -120,32 +115,26 @@ mongoose.connect(process.env.MONGODB_URI, {
 .then(() => console.log('Connected to MongoDB'))
 .catch(err => console.error('MongoDB connection error:', err));
 
-// Health Check
 app.get('/health', (req, res) => res.json({ 
   status: 'ok',
   dbState: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
 }));
 
-// AI Processing Endpoint
 app.post('/api/v1/process', async (req, res) => {
   try {
     const { text, prompt, model = 'gemini' } = req.body;
     
-    // Validation
     if (!text || !prompt) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    // Generate cache key
     const cacheKey = `ai:${model}:${hashString(text + prompt)}`;
     
-    // Check cache
     const cached = await Cache.findOne({ key: cacheKey });
     if (cached) {
       return res.json(cached.value);
     }
 
-    // Process with AI
     let result;
     switch(model.toLowerCase()) {
       case 'gemini':
@@ -158,7 +147,6 @@ app.post('/api/v1/process', async (req, res) => {
         return res.status(400).json({ error: 'Invalid model' });
     }
 
-    // Cache in MongoDB with 1 hour expiration
     const cacheEntry = new Cache({
       key: cacheKey,
       value: result,
@@ -176,7 +164,6 @@ app.post('/api/v1/process', async (req, res) => {
   }
 });
 
-// Utility function
 function hashString(str) {
   return str.split('').reduce((a, b) => {
     a = ((a << 5) - a) + b.charCodeAt(0);
@@ -184,7 +171,6 @@ function hashString(str) {
   }, 0);
 }
 
-// Error handling
 app.use((err, req, res, next) => {
   res.status(500).json({
     error: 'Internal server error',
