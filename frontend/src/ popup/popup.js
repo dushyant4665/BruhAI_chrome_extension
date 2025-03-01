@@ -6,23 +6,23 @@ document.addEventListener('DOMContentLoaded', () => {
       optimize: "Optimize this code for better performance:"
   };
 
-  // Handle predefined actions
+
   Object.entries(actions).forEach(([id, prompt]) => {
       document.getElementById(id).addEventListener('click', () => handleAction(prompt));
   });
 
-  // Handle custom prompt
+
   document.getElementById('customAction').addEventListener('click', () => {
       const customPrompt = document.getElementById('customPrompt').value;
       if (customPrompt) handleAction(customPrompt);
   });
 
-  // Copy to clipboard
+
   document.getElementById('copyResult').addEventListener('click', () => {
       navigator.clipboard.writeText(document.getElementById('result').innerText);
   });
 
-  // History management
+
   loadHistory();
 });
 
@@ -49,7 +49,7 @@ async function getSelectedText() {
 }
 
 async function processWithAI(text, prompt) {
-  // Replace with actual API call
+
   const response = await fetch('YOUR_BACKEND_ENDPOINT', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -76,7 +76,6 @@ function showError(message) {
   setTimeout(() => errorDiv.style.display = 'none', 5000);
 }
 
-// History functions
 function addHistoryItem(prompt, response) {
   const historyItem = document.createElement('div');
   historyItem.className = 'flex items-center justify-between text-sm p-2 hover:bg-gray-700 rounded cursor-pointer';
