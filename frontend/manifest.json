@@ -1,25 +1,26 @@
 {
   "manifest_version": 3,
-  "name": "Code AI Assistant",
-  "version": "1.0.0",
+  "name": "AI Code Assistant",
+  "version": "1.0",
+  "description": "Get AI-powered code explanations and optimizations",
+  "permissions": ["storage", "activeTab", "contextMenus", "scripting"],
   "action": {
     "default_popup": "src/popup/popup.html",
     "default_icon": {
-      "16": "public/icons/icon16.png",
-      "48": "public/icons/icon48.png"
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
     }
   },
   "icons": {
-    "128": "public/icons/icon128.png"
+    "128": "icons/icon128.png"
   },
-  "permissions": ["activeTab", "scripting", "contextMenus", "storage"],
   "background": {
     "service_worker": "src/background/background.js"
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["src/content/contentScript.js"]
+      "js": ["src/content/content.js"]
     }
   ]
 }

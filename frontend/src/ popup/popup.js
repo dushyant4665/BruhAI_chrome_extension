@@ -1,100 +1,118 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const actions = {
-      summarize: "Summarize the selected content in bullet points:",
-      explain: "Explain this code in simple terms:",
-      debug: "Find and fix bugs in this code:",
-      optimize: "Optimize this code for better performance:"
-  };
+class CodeAssistant {
+  constructor() {
+    this.API_BASE = 'http://localhost:6000/api/v1';
+    this.initElements();
+    this.initEventListeners();
+    this.loadHistory();
+    this.getSelectedText();
+  }
 
+  initElements() {
+    this.elements = {
+      input: document.getElementById('input'),
+      result: document.getElementById('result'),
+      loading: document.getElementById('loading'),
+      history: document.getElementById('history'),
+      copyBtn: document.getElementById('copy'),
+      clearHistoryBtn: document.getElementById('clear-history')
+    };
+  }
 
-  Object.entries(actions).forEach(([id, prompt]) => {
-      document.getElementById(id).addEventListener('click', () => handleAction(prompt));
-  });
+  initEventListeners() {
+    document.querySelectorAll('[data-action]').forEach(btn => {
+      btn.addEventListener('click', e => this.handleAction(e.target.dataset.action));
+    });
 
+    this.elements.copyBtn.addEventListener('click', () => this.copyResult());
+    this.elements.clearHistoryBtn.addEventListener('click', () => this.clearHistory());
+  }
 
-  document.getElementById('customAction').addEventListener('click', () => {
-      const customPrompt = document.getElementById('customPrompt').value;
-      if (customPrompt) handleAction(customPrompt);
-  });
+  async getSelectedText() {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const response = await chrome.tabs.sendMessage(tab.id, { action: 'getSelection' });
+    if (response?.text) {
+      this.elements.input.value = response.text;
+    }
+  }
 
+  async handleAction(action) {
+    const text = this.elements.input.value.trim();
+    if (!text) return this.showError('Please select or enter some text');
 
-  document.getElementById('copyResult').addEventListener('click', () => {
-      navigator.clipboard.writeText(document.getElementById('result').innerText);
-  });
+    this.toggleLoading(true);
+    
+    try {
+      const result = await this.processText(text, action);
+      this.showResult(result);
+      this.saveToHistory(action, result);
+    } catch (error) {
+      this.showError(error.message);
+    } finally {
+      this.toggleLoading(false);
+    }
+  }
 
+  async processText(text, action) {
+    const response = await fetch(`${this.API_BASE}/process`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        text,
+        prompt: action,
+        model: 'gemini'
+      })
+    });
 
-  loadHistory();
-});
+    if (!response.ok) throw new Error(await response.text());
+    return response.json();
+  }
 
-async function handleAction(promptPrefix) {
-  try {
-      const selection = await getSelectedText();
-      if (!selection) return showError('Please select some text first!');
-      
-      showLoading(true);
-      const response = await processWithAI(selection, promptPrefix);
-      
-      showResult(response);
-      addHistoryItem(promptPrefix, response);
-  } catch (error) {
-      showError(error.message);
-  } finally {
-      showLoading(false);
+  showResult(data) {
+    this.elements.result.textContent = data.text;
+  }
+
+  copyResult() {
+    navigator.clipboard.writeText(this.elements.result.textContent);
+  }
+
+  toggleLoading(show) {
+    this.elements.loading.classList.toggle('hidden', !show);
+  }
+
+  saveToHistory(action, result) {
+    const history = JSON.parse(localStorage.getItem('history') || '[]');
+    history.unshift({
+      action,
+      preview: result.text.substring(0, 50) + '...',
+      timestamp: new Date().toISOString()
+    });
+    localStorage.setItem('history', history.slice(0, 20));
+    this.loadHistory();
+  }
+
+  loadHistory() {
+    const history = JSON.parse(localStorage.getItem('history') || '[]');
+    this.elements.history.innerHTML = history.map(item => `
+      <div class="history-item">
+        <span>${item.action}: ${item.preview}</span>
+        <small>${new Date(item.timestamp).toLocaleTimeString()}</small>
+      </div>
+    `).join('');
+  }
+
+  clearHistory() {
+    localStorage.removeItem('history');
+    this.loadHistory();
+  }
+
+  showError(message) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.textContent = message;
+    document.body.prepend(errorDiv);
+    setTimeout(() => errorDiv.remove(), 3000);
   }
 }
 
-async function getSelectedText() {
-  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  return chrome.tabs.sendMessage(tab.id, { action: 'getSelection' });
-}
-
-async function processWithAI(text, prompt) {
-
-  const response = await fetch('YOUR_BACKEND_ENDPOINT', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text, prompt })
-  });
-  
-  if (!response.ok) throw new Error('AI processing failed');
-  return response.json();
-}
-
-function showResult(content) {
-  const resultDiv = document.getElementById('result');
-  resultDiv.innerHTML = marked.parse(content);
-}
-
-function showLoading(show) {
-  document.getElementById('loading').style.display = show ? 'block' : 'none';
-}
-
-function showError(message) {
-  const errorDiv = document.getElementById('error');
-  errorDiv.textContent = message;
-  errorDiv.style.display = 'block';
-  setTimeout(() => errorDiv.style.display = 'none', 5000);
-}
-
-function addHistoryItem(prompt, response) {
-  const historyItem = document.createElement('div');
-  historyItem.className = 'flex items-center justify-between text-sm p-2 hover:bg-gray-700 rounded cursor-pointer';
-  historyItem.innerHTML = `
-      <div class="truncate flex-1">${prompt}</div>
-      <button class="text-gray-400 hover:text-white px-2">
-          <i class="fas fa-redo"></i>
-      </button>
-  `;
-  historyItem.querySelector('button').addEventListener('click', () => {
-      document.getElementById('result').innerHTML = marked.parse(response);
-  });
-  document.getElementById('historyList').prepend(historyItem);
-}
-
-function loadHistory() {
-  chrome.storage.local.get(['history'], (result) => {
-      if (result.history) {
-          result.history.forEach(item => addHistoryItem(item.prompt, item.response));
-      }
-  });
-}
+// Initialize the app
+new CodeAssistant();
