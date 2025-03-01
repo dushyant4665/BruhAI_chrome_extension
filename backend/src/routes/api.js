@@ -1,8 +1,8 @@
-// backend/src/routes/api.js
+
 import express from 'express';
 import { apiLimiter } from '../middleware/rateLimit.js';
-import { GeminiService } from '../ai/gemini.js';
-import { OpenAIService } from '../ai/openai.js';
+import GeminiService from '../ai/gemini.js';
+import OpenAIService from '../ai/openai.js'; 
 import { Cache } from '../db/models/Cache.js';
 
 const router = express.Router();
@@ -41,7 +41,7 @@ router.post('/process', apiLimiter, async (req, res, next) => {
     const cacheEntry = new Cache({
       key: cacheKey,
       value: result,
-      expiresAt: new Date(Date.now() + 3600000) // 1 hour
+      expiresAt: new Date(Date.now() + 3600000) //1 ghante ka 
     });
     await cacheEntry.save();
 

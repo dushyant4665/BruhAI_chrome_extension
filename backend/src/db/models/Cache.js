@@ -1,4 +1,4 @@
-// backend/src/db/models/Cache.js
+
 import mongoose from 'mongoose';
 
 const cacheSchema = new mongoose.Schema({
@@ -18,4 +18,5 @@ const cacheSchema = new mongoose.Schema({
   }
 });
 
+// For models, named export is okay since we're exporting a constant
 export const Cache = mongoose.model('Cache', cacheSchema);

@@ -1,7 +1,7 @@
-// backend/src/ai/gemini.js
+
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-export class GeminiService {
+export default class GeminiService {  
   constructor(apiKey) {
     this.genAI = new GoogleGenerativeAI(apiKey);
     this.model = this.genAI.getGenerativeModel({ model: 'gemini-pro' });

@@ -1,21 +1,40 @@
-// backend/src/db/models/Cache.js
-import mongoose from 'mongoose';
+import OpenAI from 'openai';
+import { config } from 'dotenv';
 
-const cacheSchema = new mongoose.Schema({
-  key: {
-    type: String,
-    required: true,
-    unique: true,
-    index: true
-  },
-  value: {
-    type: mongoose.Schema.Types.Mixed,
-    required: true
-  },
-  expiresAt: {
-    type: Date,
-    index: { expires: '1h' }
+config({ path: './.env' }); 
+
+export default class OpenAIService {
+  constructor() {
+
+    const apiKey = process.env.OPENAI_API_KEY;
+    
+    if (!apiKey) {
+      throw new Error('OPENAI_API_KEY is missing from environment variables');
+    }
+
+    this.openai = new OpenAI({ apiKey });
   }
-});
 
-export const Cache = mongoose.model('Cache', cacheSchema);
+  async generateContent(prompt, text) {
+    try {
+      const response = await this.openai.chat.completions.create({
+        model: 'gpt-3.5-turbo',
+        messages: [
+          { role: 'system', content: prompt },
+          { role: 'user', content: text }
+        ],
+        temperature: 0.7
+      });
+
+      return {
+        success: true,
+        text: response.choices[0].message.content,
+        model: 'gpt-3.5-turbo',
+        tokens: response.usage.total_tokens
+      };
+    } catch (error) {
+      error.code = 'OPENAI_ERROR';
+      throw error;
+    }
+  }
+}
