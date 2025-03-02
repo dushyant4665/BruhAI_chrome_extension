@@ -18,11 +18,20 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => logger.error('MongoDB connection error:', err));
 
 //middleware
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: [
+    'https://vigilant-engine-7vvqx7xwjq7g2r4qg.github.dev',
+    'chrome-extension://your-extension-id' // Will get after loading extension
+  ],
+  methods: ['GET', 'POST']
+}));
 app.use(express.json());
 
 //routes
 app.use('/api/v1', apiRouter);
+
+
 
 //health check
 app.get('/health', (req, res) => {

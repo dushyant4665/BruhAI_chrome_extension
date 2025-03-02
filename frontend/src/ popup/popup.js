@@ -1,6 +1,7 @@
 class CodeAssistant {
   constructor() {
-    this.API_BASE = 'http://localhost:6000/api/v1';
+    this.API_BASE = 'https://vigilant-engine-7vvqx7xwjq7g2r4qg-6000.preview.app.github.dev/api/v1';
+    // this.API_BASE = 'http://localhost:6000/api/v1';
     this.initElements();
     this.initEventListeners();
     this.loadHistory();

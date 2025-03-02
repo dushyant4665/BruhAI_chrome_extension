@@ -14,7 +14,8 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "test": "NODE_ENV=test jest"
+    "test": "NODE_ENV=test jest",
+  "build": "react-scripts build"
   },
   "devDependencies": {
     "jest": "^29.7.0",
