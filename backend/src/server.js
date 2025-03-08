@@ -22,7 +22,7 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use(cors({
   origin: [
     'https://vigilant-engine-7vvqx7xwjq7g2r4qg.github.dev',
-    'chrome-extension://your-extension-id' // Will get after loading extension
+    'chrome-extension://extensionid' 
   ],
   methods: ['GET', 'POST']
 }));
