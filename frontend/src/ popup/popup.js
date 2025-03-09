@@ -114,6 +114,4 @@ class CodeAssistant {
     setTimeout(() => errorDiv.remove(), 3000);
   }
 }
-
-// Initialize the app
 new CodeAssistant();
