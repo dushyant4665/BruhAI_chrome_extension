@@ -21,7 +21,7 @@ export const AIProcessor = {
         debug: "Find and fix bugs in this code:",
         optimize: "Optimize this code for performance:"
       };
-      return prompts[type] || type; // Allow custom prompts
+      return prompts[type] || type;
     },
   
     formatResponse(response) {
