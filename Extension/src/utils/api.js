@@ -1,4 +1,4 @@
-// extension/src/lib/api.js
+
 const API_BASE = import.meta.env.VITE_API_URL || 'https://bookish-fortnight-6996pvpwqg4wcrjx.github.dev/';
 
 export const AIProcessor = {
