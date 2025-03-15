@@ -1,4 +1,4 @@
-// extension/src/popup/App.jsx
+
 import React, { useState } from 'react';
 import { processCode } from '../lib/api';
 
