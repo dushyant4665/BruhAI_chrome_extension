@@ -1,4 +1,4 @@
-// extension/src/content/content.js
+
 // Handle text selection and context menu
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === 'getSelection') {
