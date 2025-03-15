@@ -1,0 +1,72 @@
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T17:41:44.729Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T17:41:45.136Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:05:22.081Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:05:22.381Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:05:27.112Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:05:27.292Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:05:29.443Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:05:29.621Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:05:32.330Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:05:32.524Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:05:43.829Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:05:44.017Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:05:46.669Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:05:46.848Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:05:53.892Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:05:54.087Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:05:58.756Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:05:58.940Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:06:01.148Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:06:01.326Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:06:08.201Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:06:08.380Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:06:14.797Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:06:14.979Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:06:19.893Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:06:20.076Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:06:26.057Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:06:26.293Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:06:31.671Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:06:31.850Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:06:38.606Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:06:38.783Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:06:45.091Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:06:45.346Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:06:47.278Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:06:47.456Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:06:52.620Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:06:52.806Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:06:55.060Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:06:55.288Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:07:02.062Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:07:02.246Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:07:05.863Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:07:06.180Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:07:09.889Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:07:10.076Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:07:12.624Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:07:12.840Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:07:15.529Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:07:16.010Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-01T18:07:16.747Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-01T18:07:17.081Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-02T08:31:11.566Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-02T08:31:11.853Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-02T08:35:37.667Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-02T08:35:37.949Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-02T08:35:45.197Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-02T08:35:45.369Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-02T08:35:47.540Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-02T08:35:47.724Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-14T19:46:05.410Z"}
+{"code":"ENOTFOUND","hostname":"_mongodb._tcp.your-mongodb-uri","level":"error","message":"MongoDB connection error: querySrv ENOTFOUND _mongodb._tcp.your-mongodb-uri","stack":"Error: querySrv ENOTFOUND _mongodb._tcp.your-mongodb-uri\n    at QueryReqWrap.onresolve [as oncomplete] (node:internal/dns/promises:291:17)","syscall":"querySrv","timestamp":"2025-03-14T19:46:05.496Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-14T19:48:43.814Z"}
+{"code":8000,"codeName":"AtlasError","connectionGeneration":0,"errorLabelSet":{},"errorResponse":{"code":8000,"codeName":"AtlasError","errmsg":"bad auth : authentication failed","ok":0},"level":"error","message":"MongoDB connection error: bad auth : authentication failed","ok":0,"stack":"MongoServerError: bad auth : authentication failed\n    at Connection.sendCommand (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/connection.js:298:27)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async Connection.command (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/connection.js:326:26)\n    at async continueScramConversation (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/auth/scram.js:131:15)\n    at async executeScram (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/auth/scram.js:80:5)\n    at async ScramSHA1.auth (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/auth/scram.js:39:16)\n    at async performInitialHandshake (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/connect.js:104:13)\n    at async connect (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/connect.js:24:9)","timestamp":"2025-03-14T19:48:44.176Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-14T20:09:04.363Z"}
+{"code":8000,"codeName":"AtlasError","connectionGeneration":0,"errorLabelSet":{},"errorResponse":{"code":8000,"codeName":"AtlasError","errmsg":"bad auth : authentication failed","ok":0},"level":"error","message":"MongoDB connection error: bad auth : authentication failed","ok":0,"stack":"MongoServerError: bad auth : authentication failed\n    at Connection.sendCommand (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/connection.js:298:27)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async Connection.command (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/connection.js:326:26)\n    at async continueScramConversation (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/auth/scram.js:131:15)\n    at async executeScram (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/auth/scram.js:80:5)\n    at async ScramSHA1.auth (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/auth/scram.js:39:16)\n    at async performInitialHandshake (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/connect.js:104:13)\n    at async connect (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/connect.js:24:9)","timestamp":"2025-03-14T20:09:04.745Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-14T20:09:44.665Z"}
+{"code":8000,"codeName":"AtlasError","connectionGeneration":0,"errorLabelSet":{},"errorResponse":{"code":8000,"codeName":"AtlasError","errmsg":"bad auth : authentication failed","ok":0},"level":"error","message":"MongoDB connection error: bad auth : authentication failed","ok":0,"stack":"MongoServerError: bad auth : authentication failed\n    at Connection.sendCommand (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/connection.js:298:27)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async Connection.command (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/connection.js:326:26)\n    at async continueScramConversation (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/auth/scram.js:131:15)\n    at async executeScram (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/auth/scram.js:80:5)\n    at async ScramSHA1.auth (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/auth/scram.js:39:16)\n    at async performInitialHandshake (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/connect.js:104:13)\n    at async connect (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/connect.js:24:9)","timestamp":"2025-03-14T20:09:44.850Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-14T20:11:57.151Z"}
+{"code":8000,"codeName":"AtlasError","connectionGeneration":0,"errorLabelSet":{},"errorResponse":{"code":8000,"codeName":"AtlasError","errmsg":"bad auth : authentication failed","ok":0},"level":"error","message":"MongoDB connection error: bad auth : authentication failed","ok":0,"stack":"MongoServerError: bad auth : authentication failed\n    at Connection.sendCommand (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/connection.js:298:27)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async Connection.command (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/connection.js:326:26)\n    at async continueScramConversation (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/auth/scram.js:131:15)\n    at async executeScram (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/auth/scram.js:80:5)\n    at async ScramSHA1.auth (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/auth/scram.js:39:16)\n    at async performInitialHandshake (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/connect.js:104:13)\n    at async connect (/workspaces/BruhAI_chrome_extension/backend/node_modules/mongodb/lib/cmap/connect.js:24:9)","timestamp":"2025-03-14T20:11:57.433Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-03-14T20:15:18.888Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-03-14T20:15:19.135Z"}
