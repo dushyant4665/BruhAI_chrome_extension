@@ -1,4 +1,3 @@
-
 class PopupManager {
     constructor() {
       this.history = [];
