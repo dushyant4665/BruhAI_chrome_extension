@@ -1,4 +1,3 @@
-
 class SelectionManager {
     constructor() {
       this.selectedText = '';
