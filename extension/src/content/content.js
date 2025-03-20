@@ -1,4 +1,4 @@
-// src/content/content.js
+
 class SelectionManager {
     constructor() {
       this.selectedText = '';
