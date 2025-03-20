@@ -1,4 +1,4 @@
-// src/popup/popup.js
+
 class PopupManager {
     constructor() {
       this.history = [];
