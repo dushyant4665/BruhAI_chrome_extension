@@ -32,6 +32,9 @@ app.use(express.json());
 //routes
 app.use('/api/v1', apiRouter);
 
+app.get("/", (req, res) => {
+  res.send("Backend is Running! 🚀");
+});
 
 
 //health check
