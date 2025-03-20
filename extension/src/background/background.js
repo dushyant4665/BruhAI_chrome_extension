@@ -1,4 +1,4 @@
-// src/background/background.js
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.type === 'PROCESS_TEXT') {
       fetch('http://localhost:6000/api/v1/process', {
