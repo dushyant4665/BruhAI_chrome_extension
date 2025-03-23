@@ -1,22 +1,17 @@
-
 import express from 'express';
 import { apiLimiter } from '../middleware/rateLimit.js';
-import GeminiService from '../ai/gemini.js';
-import OpenAIService from '../ai/openai.js'; 
+import AIService from '../ai/aiService.js';
 import { Cache } from '../db/models/Cache.js';
 
 const router = express.Router();
-const gemini = new GeminiService(process.env.GEMINI_API_KEY);
-const openai = new OpenAIService(process.env.OPENAI_API_KEY);
+const ai = new AIService();
 
 router.post('/process', apiLimiter, async (req, res, next) => {
   try {
     const { text, prompt, model = 'gemini' } = req.body;
     
     if (!text || !prompt) {
-      const error = new Error('Missing required fields');
-      error.statusCode = 400;
-      throw error;
+      return res.status(400).json({ error: 'Missing required fields' });
     }
 
     const cacheKey = `${model}:${hashString(text + prompt)}`;
@@ -24,26 +19,13 @@ router.post('/process', apiLimiter, async (req, res, next) => {
     
     if (cached) return res.json(cached.value);
 
-    let result;
-    switch(model.toLowerCase()) {
-      case 'gemini':
-        result = await gemini.generateContent(prompt, text);
-        break;
-      case 'openai':
-        result = await openai.generateContent(prompt, text);
-        break;
-      default:
-        const error = new Error('Invalid AI model');
-        error.statusCode = 400;
-        throw error;
-    }
-
-    const cacheEntry = new Cache({
+    const result = await ai.generateContent(prompt, text, model);
+    
+    await Cache.create({
       key: cacheKey,
       value: result,
-      expiresAt: new Date(Date.now() + 3600000) //1 ghante ka 
+      expiresAt: new Date(Date.now() + 3600000) // 1 hour cache
     });
-    await cacheEntry.save();
 
     res.json(result);
   } catch (error) {
@@ -59,3 +41,4 @@ function hashString(str) {
 }
 
 export default router;
+console.log("🔹 AIService Instance:", !!ai);
