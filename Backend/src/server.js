@@ -22,13 +22,7 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => logger.error('❌ MongoDB connection error:', err));
 
 // **Middleware**
-app.use(cors({
-  origin: [
-    'https://vigilant-engine-7vvqx7xwjq7g2r4qg.github.dev',
-    'chrome-extension://extensionid' // Extension ID yaha update kar
-  ],
-  methods: ['GET', 'POST']
-}));
+app.use(cors());
 app.use(express.json());
 
 // **Routes**
@@ -71,20 +65,5 @@ console.log('🔍 Env Variables Loaded:', {
   Ollama: process.env.OLLAMA_API_URL ? '✅' : '❌'
 });
 
-// **Server Start**
-const server = app.listen(PORT, () => {
-  logger.info(`🚀 Server running on port ${PORT}`);
-});
-
-// **Graceful Shutdown**
-process.on('SIGTERM', () => {
-  server.close(() => {
-    mongoose.connection.close();
-    logger.info('⚠️ Server closed');
-    process.exit(0);
-  });
-});
-
-// **Extra Logs**
-console.log("✅ Gemini API Key Loaded:", process.env.GEMINI_API_KEY ? "Yes" : "No");
-console.log("🌍 Ollama API URL:", process.env.OLLAMA_API_URL || "Not Set");
+// **Export for Vercel Serverless Deployment**
+export default app;
