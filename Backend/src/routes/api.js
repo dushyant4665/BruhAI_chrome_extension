@@ -1,61 +1,40 @@
-
 import express from 'express';
 import { apiLimiter } from '../middleware/rateLimit.js';
-import GeminiService from '../ai/gemini.js';
-import OpenAIService from '../ai/openai.js'; 
+import AIService from '../ai/aiService.js';
 import { Cache } from '../db/models/Cache.js';
+import crypto from 'crypto';
 
 const router = express.Router();
-const gemini = new GeminiService(process.env.GEMINI_API_KEY);
-const openai = new OpenAIService(process.env.OPENAI_API_KEY);
+const ai = new AIService();
 
 router.post('/process', apiLimiter, async (req, res, next) => {
   try {
     const { text, prompt, model = 'gemini' } = req.body;
-    
     if (!text || !prompt) {
-      const error = new Error('Missing required fields');
-      error.statusCode = 400;
-      throw error;
+      return res.status(400).json({ error: 'Missing required fields' });
     }
 
     const cacheKey = `${model}:${hashString(text + prompt)}`;
     const cached = await Cache.findOne({ key: cacheKey });
-    
-    if (cached) return res.json(cached.value);
+    if (cached) return res.json({ success: true, cached: true, data: cached.value });
 
-    let result;
-    switch(model.toLowerCase()) {
-      case 'gemini':
-        result = await gemini.generateContent(prompt, text);
-        break;
-      case 'openai':
-        result = await openai.generateContent(prompt, text);
-        break;
-      default:
-        const error = new Error('Invalid AI model');
-        error.statusCode = 400;
-        throw error;
+    if (!['gemini', 'gpt-4', 'llama'].includes(model)) {
+      return res.status(400).json({ error: 'Invalid model name' });
     }
 
-    const cacheEntry = new Cache({
-      key: cacheKey,
-      value: result,
-      expiresAt: new Date(Date.now() + 3600000) //1 ghante ka 
-    });
-    await cacheEntry.save();
-
-    res.json(result);
+    const result = await ai.generateContent(prompt, text, model);
+    await Cache.create({ key: cacheKey, value: result });
+    
+    res.json({ success: true, cached: false, data: result });
   } catch (error) {
     next(error);
   }
 });
 
 function hashString(str) {
-  return str.split('').reduce((a, b) => {
-    a = ((a << 5) - a) + b.charCodeAt(0);
-    return a & a;
-  }, 0);
+  return crypto.createHash('md5').update(str).digest('hex');
 }
 
 export default router;
+console.log("🔹 AIService Instance:", ai instanceof AIService);
+console.log(".")

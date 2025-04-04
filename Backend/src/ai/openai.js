@@ -1,3 +1,5 @@
+import { config } from 'dotenv';
+config();
 import OpenAI from 'openai';
 import { config } from 'dotenv';
 
@@ -5,11 +7,10 @@ config({ path: './.env' });
 
 export default class OpenAIService {
   constructor() {
-
     const apiKey = process.env.OPENAI_API_KEY;
-    
+
     if (!apiKey) {
-      throw new Error('OPENAI_API_KEY is missing from environment variables');
+      throw new Error('❌ OPENAI_API_KEY is missing from environment variables');
     }
 
     this.openai = new OpenAI({ apiKey });
@@ -33,7 +34,7 @@ export default class OpenAIService {
         tokens: response.usage.total_tokens
       };
     } catch (error) {
-      error.code = 'OPENAI_ERROR';
+      console.error("❌ OpenAI API Error:", error.message);
       throw error;
     }
   }

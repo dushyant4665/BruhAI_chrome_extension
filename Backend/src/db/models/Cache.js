@@ -1,4 +1,3 @@
-
 import mongoose from 'mongoose';
 
 const cacheSchema = new mongoose.Schema({
@@ -14,7 +13,9 @@ const cacheSchema = new mongoose.Schema({
   },
   expiresAt: {
     type: Date,
-    index: { expires: '1h' }
+    expires: 3600, // TTL index for automatic deletion after 1 hour
+    default: Date.now
   }
 });
+
 export const Cache = mongoose.model('Cache', cacheSchema);
